@@ -453,7 +453,9 @@ func isZero(v reflect.Value) bool {
 	switch kind {
 	case reflect.String:
 		return len(v.String()) == 0
-	case reflect.Interface, reflect.Ptr:
+	case reflect.Interface:
+		return isInterfaceZero(v.Interface())
+	case reflect.Ptr:
 		return v.IsNil()
 	case reflect.Slice:
 		return v.Len() == 0
@@ -480,4 +482,21 @@ func isZero(v reflect.Value) bool {
 		return true
 	}
 	return false
+}
+
+func isInterfaceZero(v interface{}) bool {
+	switch t := v.(type) {
+	case string:
+		return len(t) == 0
+	case int, int8, int16, int32, int64:
+		return t == 0
+	case float32, float64:
+		return t == 0
+	case uint, uint8, uint16, uint32, uint64, uintptr:
+		return t == 0
+	case bool:
+		return !t
+	default:
+		return reflect.ValueOf(v).IsNil()
+	}
 }

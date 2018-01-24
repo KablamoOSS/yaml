@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"gopkg.in/yaml.v2"
+	yaml "github.com/KablamoOSS/yaml"
 )
 
 // An example showing how to unmarshal embedded
