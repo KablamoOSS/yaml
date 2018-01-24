@@ -497,6 +497,6 @@ func isInterfaceZero(v interface{}) bool {
 	case bool:
 		return !t
 	default:
-		return reflect.ValueOf(v).IsNil()
+		return v == nil || reflect.ValueOf(v).IsNil()
 	}
 }
